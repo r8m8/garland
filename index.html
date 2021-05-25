@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" id='myStyle'>
 </head>
 
 <body>
@@ -24,11 +24,13 @@
       <input type="number" name="number" id="number" min="0" hidden>
   
       <label for="color">Выбор цвета</label>
-      <select name="color" id="color">h
+      <select name="color" id="color">
         <option value="red">red</option>
         <option value="green">green</option>
         <option value="blue">blue</option>
+        <option value="hex">your hex color</option>
       </select>
+      <input type="color" id="hex" hidden>
     </div>
     
     <button id="init-button">Создать сетку</button>

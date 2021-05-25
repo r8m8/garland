@@ -7,23 +7,28 @@
 .controls {
     text-align: center;
     margin: 0 auto;
+    margin-top: 10px;
 }
 
 #init-button {
     display: block;
     margin: 0 auto;
+    margin-top: 10px;
     background-color: lightgray;
 }
 
 .lamp {
     display: inline-block;
 
-    /*border: 1px solid white;*/
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
 
     transition: all 0.3s cubic-bezier(.34,1.07,.77,.26);
 }
 
+.colored {
+    background-color: black;
+}
 
 .red {
     background-color: red;

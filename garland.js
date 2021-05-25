@@ -33,23 +33,31 @@ class Garland {
 }
 
 class Mode {
-    lampsArr = Array.from(document.querySelectorAll('.lamp'))
+    lampsArr = Array.from(document.querySelectorAll('.lamp'));
 
-    interval = null
+    interval = null;
 
-    prevColor;
     color = document.getElementById('color').value;
 
     selectColor = document.getElementById('color').onchange = () => {
-        this.prevColor = this.color;
         this.color = document.getElementById('color').value;
+        if (this.color === 'hex') {
+            document.getElementById('hex').hidden = false;
+        } else {
+            document.getElementById('hex').hidden = true
+        }
+        this.clearColor();
+    }
+
+    getHex = document.getElementById('hex').oninput = () => {
+        this.color = document.getElementById('hex').value;
         this.clearColor();
     }
 
     selectMode = document.getElementById('mode').onchange = () => {
         document.getElementById('number').hidden = true;
         clearInterval(this.interval);
-        this.clearColor();
+        this.clearColor()
         const mode = document.getElementById('mode').value;
         switch (mode) {
             case 'consistentenly-mode':
@@ -68,8 +76,7 @@ class Mode {
 
     clearColor() {
         this.lampsArr.forEach((item) => {
-            item.classList.remove(this.color);
-            item.classList.remove(this.prevColor);
+            item.style.backgroundColor = null;
         })
     }
 
@@ -77,12 +84,13 @@ class Mode {
         let index = 0;
         this.interval = setInterval(() => {
             if(index === this.lampsArr.length - 1){
+                this.clearColor()
                 clearInterval(this.interval);
                 this.consistentenlyMode();
         }
-            this.lampsArr[index].classList.toggle(this.color);
+            this.lampsArr[index].style.backgroundColor = this.color;
             index++;
-        }, 10);
+        }, 30);
     }
 
     customMode() {
@@ -101,24 +109,28 @@ class Mode {
         let index = 0;
         
         this.interval = setInterval(() => {
-            if(index >= this.lampsArr.length) {
+            if (index >= this.lampsArr.length) {
                 index = 0;
+                this.clearColor()
         }
-            this.lampsArr[index].classList.toggle(this.color);
+            this.lampsArr[index].style.backgroundColor = this.color;
             index += increment;
-        }, 10);
-
-    }
+        }, 30);
+}
 
     randomMode() {
         let min = 1;
         let max = this.lampsArr.length;
         this.interval = setInterval(() => {
             let randomNumber = (Math.floor(Math.random() * (max - min + 1)) + min) - 1;
-            this.lampsArr[randomNumber].classList.toggle(this.color);
-        }, 10);
+            if (randomNumber == this.lampsArr.length / 2
+                || randomNumber == this.lampsArr.length / 3 
+                || randomNumber == this.lampsArr.length / 4) {
+                this.clearColor();
+            }
+            this.lampsArr[randomNumber].style.backgroundColor = this.color;
+        }, 30);
     }
-
 }
 
 let condition = false;
@@ -127,10 +139,10 @@ let initButton = document.getElementById('init-button');
 initButton.onclick = (() => {
     condition = !condition;
     if (condition === true) {
-        let createGarland = new Garland(+prompt('Кол-во строк?', ''),
-                                    +prompt('Кол-во столбцов?', ''),
-                                    +prompt('Ширина лампы?', ''),
-                                    +prompt('Высота лампы?', ''))
+        let createGarland = new Garland(+prompt('Кол-во строк?', '20'),
+                                        +prompt('Кол-во столбцов?', '20'),
+                                        +prompt('Ширина лампы?', '20'),
+                                        +prompt('Высота лампы?', '20'))
         let createMode = new Mode;
         initButton.textContent = 'Удалить сетку';
         document.getElementById('mode-container').hidden = false
@@ -142,4 +154,3 @@ initButton.onclick = (() => {
         document.getElementById('mode-container').hidden = true
     }
 })
-
