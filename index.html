@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="field">
+    <div class="field-container">
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="mode-container" id="mode-container" hidden>
+      <label for="mode">Режим</label>
+      <select name="mode" id="mode">
+        <option value="consistentenly-mode">Постепенное заполнение</option>
+        <option value="random-mode">Рандомное загорание</option>
+        <option value="custom-mode">Кастом</option>
+      </select>
+  
+      <input type="number" name="number" id="number" min="0" hidden>
+  
+      <label for="color">Выбор цвета</label>
+      <select name="color" id="color">h
+        <option value="red">red</option>
+        <option value="green">green</option>
+        <option value="blue">blue</option>
+      </select>
+    </div>
+    
+    <button id="init-button">Создать сетку</button>
+  </div>
+
+  <script src="garland.js"></script>
+</body>
+</html>

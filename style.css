@@ -1,0 +1,38 @@
+.field-container {
+    background-color: black;
+    max-width: max-content;
+    margin: 0 auto;
+}
+
+.controls {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#init-button {
+    display: block;
+    margin: 0 auto;
+    background-color: lightgray;
+}
+
+.lamp {
+    display: inline-block;
+
+    /*border: 1px solid white;*/
+    border-radius: 50%;
+
+    transition: all 0.3s cubic-bezier(.34,1.07,.77,.26);
+}
+
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: greenyellow;
+}
+
+.blue {
+    background-color: blue;
+}
