@@ -33,6 +33,9 @@ class Garland {
 }
 
 class Mode {
+    constructor() {
+        this.selectMode();
+    }
     lampsArr = Array.from(document.querySelectorAll('.lamp'));
 
     interval = null;
@@ -49,7 +52,7 @@ class Mode {
         this.clearColor();
     }
 
-    getHex = document.getElementById('hex').oninput = () => {
+    selectCustomColor = document.getElementById('hex').oninput = () => {
         this.color = document.getElementById('hex').value;
         this.clearColor();
     }
@@ -139,11 +142,11 @@ let initButton = document.getElementById('init-button');
 initButton.onclick = (() => {
     condition = !condition;
     if (condition === true) {
-        let createGarland = new Garland(+prompt('Кол-во строк?', '20'),
-                                        +prompt('Кол-во столбцов?', '20'),
-                                        +prompt('Ширина лампы?', '20'),
-                                        +prompt('Высота лампы?', '20'))
-        let createMode = new Mode;
+        new Garland(+prompt('Кол-во строк?', '20'),
+                    +prompt('Кол-во столбцов?', '20'),
+                    +prompt('Ширина лампы?', '20'),
+                    +prompt('Высота лампы?', '20'))
+        new Mode;
         initButton.textContent = 'Удалить сетку';
         document.getElementById('mode-container').hidden = false
     } else {
