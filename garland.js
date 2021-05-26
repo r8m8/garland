@@ -38,28 +38,208 @@ class Mode {
     }
     lampsArr = Array.from(document.querySelectorAll('.lamp'));
 
-    interval = null;
+    intervalMode = null;
+    intervalColor = null;
 
     color = document.getElementById('color').value;
 
     selectColor = document.getElementById('color').onchange = () => {
+        clearInterval(this.intervalColor);
         this.color = document.getElementById('color').value;
-        if (this.color === 'hex') {
-            document.getElementById('hex').hidden = false;
+        if (this.color === 'other-color') {
+            document.getElementById('input-color').hidden = false;
         } else {
-            document.getElementById('hex').hidden = true
+            document.getElementById('input-color').hidden = true
+        }
+        if (this.color === 'allcolors') {
+            this.selectAllColors();
         }
         this.clearColor();
     }
 
-    selectCustomColor = document.getElementById('hex').oninput = () => {
-        this.color = document.getElementById('hex').value;
+    selectCustomColor = document.getElementById('input-color').oninput = () => {
+        this.color = document.getElementById('input-color').value;
         this.clearColor();
+    }
+
+    selectAllColors() {
+        let colorsArr = [
+            "IndianRed",
+            "LightCoral",
+            "Salmon",
+            "DarkSalmon",
+            "LightSalmon",
+            "Crimson",
+            "Red",
+            "FireBrick",
+            "DarkRed",
+            "Pink",
+            "LightPink",
+            "HotPink",
+            "DeepPink",
+            "MediumVioletRed",
+            "PaleVioletRed",
+            "LightSalmon",
+            "Coral",
+            "Tomato",
+            "OrangeRed",
+            "DarkOrange",
+            "Orange",
+            "Gold",
+            "Yellow",
+            "LightYellow",
+            "LemonChiffon",
+            "LightGoldenrodYellow",
+            "PapayaWhip",
+            "Moccasin",
+            "PeachPuff",
+            "PaleGoldenrod",
+            "Khaki",
+            "DarkKhaki",
+            "Lavender",
+            "Thistle",
+            "Plum",
+            "Violet",
+            "Orchid",
+            "Fuchsia",
+            "Magenta",
+            "MediumOrchid",
+            "MediumPurple",
+            "BlueViolet",
+            "DarkViolet",
+            "DarkOrchid",
+            "DarkMagenta",
+            "Purple",
+            "Indigo",
+            "SlateBlue",
+            "DarkSlateBlue",
+            "Cornsilk",
+            "BlanchedAlmond",
+            "Bisque",
+            "NavajoWhite",
+            "Wheat",
+            "BurlyWood",
+            "Tan",
+            "RosyBrown",
+            "SandyBrown",
+            "Goldenrod",
+            "DarkGoldenRod",
+            "Peru",
+            "Chocolate",
+            "SaddleBrown",
+            "Sienna",
+            "Brown",
+            "Maroon",
+            "Black",
+            "Gray",
+            "Silver",
+            "White",
+            "Fuchsia",
+            "Purple",
+            "Red",
+            "Maroon",
+            "Yellow",
+            "Olive",
+            "Lime",
+            "Green",
+            "Aqua",
+            "Teal",
+            "Blue",
+            "Navy",
+            "GreenYellow",
+            "Chartreuse",
+            "LawnGreen",
+            "Lime",
+            "LimeGreen",
+            "PaleGreen",
+            "LightGreen",
+            "MediumSpringGreen",
+            "SpringGreen",
+            "MediumSeaGreen",
+            "SeaGreen",
+            "ForestGreen",
+            "Green",
+            "DarkGreen",
+            "YellowGreen",
+            "OliveDrab",
+            "Olive",
+            "DarkOliveGreen",
+            "MediumAquamarine",
+            "DarkSeaGreen",
+            "LightSeaGreen",
+            "DarkCyan",
+            "Teal",
+            "Aqua",
+            "Cyan",
+            "LightCyan",
+            "PaleTurquoise",
+            "Aquamarine",
+            "Turquoise",
+            "MediumTurquoise",
+            "DarkTurquoise",
+            "CadetBlue",
+            "SteelBlue",
+            "LightSteelBlue",
+            "PowderBlue",
+            "LightBlue",
+            "SkyBlue",
+            "LightSkyBlue",
+            "DeepSkyBlue",
+            "DodgerBlue",
+            "CornflowerBlue",
+            "MediumSlateBlue",
+            "RoyalBlue",
+            "Blue",
+            "MediumBlue",
+            "DarkBlue",
+            "Navy",
+            "MidnightBlue",
+            "White",
+            "Snow",
+            "Honeydew",
+            "MintCream",
+            "Azure",
+            "AliceBlue",
+            "GhostWhite",
+            "WhiteSmoke",
+            "Seashell",
+            "Beige",
+            "OldLace",
+            "FloralWhite",
+            "Ivory",
+            "AntiqueWhite",
+            "Linen",
+            "LavenderBlush",
+            "MistyRose",
+            "Gainsboro",
+            "LightGrey",
+            "LightGray",
+            "Silver",
+            "DarkGray",
+            "DarkGrey",
+            "Gray",
+            "Grey",
+            "DimGray",
+            "DimGrey",
+            "LightSlateGray",
+            "LightSlateGrey",
+            "SlateGray",
+            "SlateGrey",
+            "DarkSlateGray",
+            "DarkSlateGrey",
+            "Black"
+        ]
+        let min = 0;
+        let max = colorsArr.length - 1
+        this.intervalColor = setInterval(() => {
+            let randomColor = (Math.floor(Math.random() * (max - min + 1)) + min);
+            this.color = colorsArr[randomColor];
+        }, 30)      
     }
 
     selectMode = document.getElementById('mode').onchange = () => {
         document.getElementById('number').hidden = true;
-        clearInterval(this.interval);
+        clearInterval(this.intervalMode);
         this.clearColor()
         const mode = document.getElementById('mode').value;
         switch (mode) {
@@ -85,11 +265,10 @@ class Mode {
 
     consistentenlyMode() {
         let index = 0;
-        this.interval = setInterval(() => {
-            if(index === this.lampsArr.length - 1){
-                this.clearColor()
-                clearInterval(this.interval);
-                this.consistentenlyMode();
+        this.intervalMode = setInterval(() => {
+            if(index >= this.lampsArr.length){
+                index = 0;
+                this.clearColor();
         }
             this.lampsArr[index].style.backgroundColor = this.color;
             index++;
@@ -111,7 +290,7 @@ class Mode {
 
         let index = 0;
         
-        this.interval = setInterval(() => {
+        this.intervalMode = setInterval(() => {
             if (index >= this.lampsArr.length) {
                 index = 0;
                 this.clearColor()
@@ -124,7 +303,7 @@ class Mode {
     randomMode() {
         let min = 1;
         let max = this.lampsArr.length;
-        this.interval = setInterval(() => {
+        this.intervalMode = setInterval(() => {
             let randomNumber = (Math.floor(Math.random() * (max - min + 1)) + min) - 1;
             if (randomNumber == this.lampsArr.length / 2
                 || randomNumber == this.lampsArr.length / 3 
@@ -157,3 +336,4 @@ initButton.onclick = (() => {
         document.getElementById('mode-container').hidden = true
     }
 })
+
