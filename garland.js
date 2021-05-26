@@ -51,7 +51,7 @@ class Mode {
         } else {
             document.getElementById('input-color').hidden = true
         }
-        if (this.color === 'allcolors') {
+        if (this.color === 'input-color') {
             this.selectAllColors();
         }
         this.clearColor();
